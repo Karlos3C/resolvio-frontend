@@ -42,3 +42,4 @@ const LinksSchema = z.object({
   documents: z.array(LinkItemSchema),
 });
 export type Links = z.infer<typeof LinksSchema>;
+export type LinkItem = z.infer<typeof LinkItemSchema>;

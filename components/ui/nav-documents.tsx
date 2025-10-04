@@ -1,19 +1,11 @@
 "use client";
 
-import { IconDots, IconFolder, IconShare3, IconTrash, type Icon } from "@tabler/icons-react";
+import { type Icon } from "@tabler/icons-react";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
@@ -21,12 +13,14 @@ import {
 
 export function NavDocuments({
   items,
+  pathname
 }: {
   items: {
     title: string;
     url: string;
     icon: Icon;
-  }[];
+  }[],
+  pathname: string;
 }) {
   const { isMobile } = useSidebar();
 
@@ -37,7 +31,9 @@ export function NavDocuments({
         {items.map((item) => (
           <SidebarMenuItem key={item.title}>
             <SidebarMenuButton
-              className="text-white hover:bg-jaguar-910 hover:text-chelsea-gem-500"
+              className={`text-white hover:bg-jaguar-910 hover:text-chelsea-gem-500 ${
+                pathname === item.url ? "bg-jaguar-910 text-chelsea-gem-500" : ""
+              }`}
               asChild
             >
               <a href={item.url}>
@@ -45,33 +41,6 @@ export function NavDocuments({
                 <span>{item.title}</span>
               </a>
             </SidebarMenuButton>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuAction showOnHover className="data-[state=open]:bg-accent rounded-sm">
-                  <IconDots />
-                  <span className="sr-only">Ver más</span>
-                </SidebarMenuAction>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                className="w-24 rounded-lg"
-                side={isMobile ? "bottom" : "right"}
-                align={isMobile ? "end" : "start"}
-              >
-                <DropdownMenuItem>
-                  <IconFolder />
-                  <span>Open</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <IconShare3 />
-                  <span>Share</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem variant="destructive">
-                  <IconTrash />
-                  <span>Delete</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
           </SidebarMenuItem>
         ))}
       </SidebarMenu>

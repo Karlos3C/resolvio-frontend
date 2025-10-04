@@ -17,8 +17,10 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { links } from "@/src/data/links";
+import { usePathname } from "next/navigation";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const pathname: string = usePathname();
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -37,9 +39,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={links.navMain} />
-        <NavDocuments items={links.documents} />
-        <NavSecondary items={links.navSecondary} className="mt-auto" />
+        <NavMain items={links.navMain} pathname={pathname} />
+        <NavDocuments items={links.documents} pathname={pathname} />
+        <NavSecondary items={links.navSecondary} pathname={pathname} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={links.user} />

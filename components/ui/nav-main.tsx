@@ -14,12 +14,14 @@ import Link from "next/link";
 
 export function NavMain({
   items,
+  pathname,
 }: {
   items: {
     title: string;
     url: string;
     icon?: Icon;
   }[];
+  pathname: string;
 }) {
   return (
     <SidebarGroup>
@@ -31,7 +33,11 @@ export function NavMain({
               <Link href={item.url}>
                 <SidebarMenuButton
                   tooltip={item.title}
-                  className="text-white cursor-pointer hover:bg-jaguar-910 hover:text-chelsea-gem-500"
+                  className={`text-white cursor-pointer ${
+                    pathname === item.url
+                      ? "bg-jaguar-910 text-chelsea-gem-500"
+                      : "hover:bg-jaguar-910 hover:text-chelsea-gem-500"
+                  }`}
                 >
                   {item.icon && <item.icon />}
                   <span>{item.title}</span>

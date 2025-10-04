@@ -1,12 +1,8 @@
 import { Links } from "../schemas/index";
 import {
-  IconCamera,
   IconPlus,
   IconChartBar,
   IconDashboard,
-  IconFileAi,
-  IconFileDescription,
-  IconFileWord,
   IconListDetails,
   IconReport,
   IconSettings,
@@ -57,12 +53,12 @@ export const links: Links = {
   documents: [
     {
       title: "Exportar Excel",
-      url: "#",
+      url: "/panel/excel",
       icon: IconFileExcel,
     },
     {
       title: "Reportes",
-      url: "#",
+      url: "/panel/reports",
       icon: IconReport,
     },
   ],

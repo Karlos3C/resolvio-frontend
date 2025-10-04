@@ -13,13 +13,15 @@ import {
 
 export function NavSecondary({
   items,
+  pathname,
   ...props
 }: {
   items: {
     title: string;
     url: string;
     icon: Icon;
-  }[];
+  }[],
+  pathname: string;
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
   return (
     <SidebarGroup {...props}>
@@ -28,7 +30,9 @@ export function NavSecondary({
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton
-                className="text-white hover:bg-jaguar-910 hover:text-chelsea-gem-500"
+                className={`text-white hover:bg-jaguar-910 hover:text-chelsea-gem-500 ${
+                  pathname === item.url ? "bg-jaguar-910 text-chelsea-gem-500" : ""
+                }`}
                 asChild
               >
                 <a href={item.url}>
