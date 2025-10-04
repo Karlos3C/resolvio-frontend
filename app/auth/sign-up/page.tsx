@@ -17,12 +17,12 @@ export default async function RegisterPage() {
       <div className="bg-white p-5 sm:p-10 rounded-lg shadow-lg">
         <SignUpForm areas={areas} />
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 justify-between items-center mt-5">
-          <Link href="/auth/login" className="text-sm text-jaguar-700 hover:underline text-center">
+          <Link href="/auth/login" className="text-sm text-jaguar-950 hover:underline text-center">
             ¿Ya tienes una cuenta? Inicia sesión
           </Link>
           <Link
             href="/auth/forgot-password"
-            className="text-sm text-jaguar-700 hover:underline text-center"
+            className="text-sm text-jaguar-950 hover:underline text-center"
           >
             ¿Olvidaste tu contraseña?
           </Link>

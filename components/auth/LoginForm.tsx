@@ -31,7 +31,7 @@ export default function LoginForm() {
       <input
         type="submit"
         value="Iniciar sesión"
-        className="w-full p-2 mt-3 bg-jaguar-700 text-white font-bold text-sm uppercase rounded-md cursor-pointer hover:bg-jaguar-900"
+        className="w-full p-2 mt-3 bg-jaguar-950 text-white font-bold text-sm uppercase rounded-md cursor-pointer hover:bg-jaguar-910"
       />
     </form>
   );

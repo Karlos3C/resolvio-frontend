@@ -4,7 +4,6 @@ import {
   IconPlus,
   IconChartBar,
   IconDashboard,
-  IconDatabase,
   IconFileAi,
   IconFileDescription,
   IconFileWord,
@@ -12,6 +11,7 @@ import {
   IconReport,
   IconSettings,
   IconUsers,
+  IconFileExcel,
 } from "@tabler/icons-react";
 
 export const links: Links = {
@@ -47,76 +47,23 @@ export const links: Links = {
       icon: IconChartBar,
     },
   ],
-  navClouds: [
-    {
-      title: "Capture",
-      icon: IconCamera,
-      isActive: true,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Proposal",
-      icon: IconFileDescription,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Prompts",
-      icon: IconFileAi,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-  ],
   navSecondary: [
     {
-      title: "Settings",
+      title: "Configuración",
       url: "#",
       icon: IconSettings,
     },
   ],
   documents: [
     {
-      title: "Data Library",
+      title: "Exportar Excel",
       url: "#",
-      icon: IconDatabase,
+      icon: IconFileExcel,
     },
     {
-      title: "Reports",
+      title: "Reportes",
       url: "#",
       icon: IconReport,
-    },
-    {
-      title: "Word Assistant",
-      url: "#",
-      icon: IconFileWord,
     },
   ],
 };

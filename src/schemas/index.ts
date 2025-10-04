@@ -38,7 +38,6 @@ const LinksSchema = z.object({
     avatar: z.string(),
   }),
   navMain: z.array(LinkItemSchema),
-  navClouds: z.array(NavCloudsItemSchema),
   navSecondary: z.array(LinkItemSchema),
   documents: z.array(LinkItemSchema),
 });

@@ -17,11 +17,11 @@ export default function LoginPage() {
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 justify-between items-center mt-5">
           <Link
             href="/auth/sign-up"
-            className="text-sm text-jaguar-700 hover:underline text-center"
+            className="text-sm text-jaguar-900 hover:underline text-center"
           >
             ¿No tienes una cuenta? Regístrate
           </Link>
-          <Link href="/auth/forgot-password" className="text-sm text-jaguar-700 hover:underline">
+          <Link href="/auth/forgot-password" className="text-sm text-jaguar-900 hover:underline">
             ¿Olvidaste tu contraseña?
           </Link>
         </div>
