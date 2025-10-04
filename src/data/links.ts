@@ -50,7 +50,7 @@ export const links: Links = {
   navSecondary: [
     {
       title: "Configuración",
-      url: "#",
+      url: "/panel/settings",
       icon: IconSettings,
     },
   ],
