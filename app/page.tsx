@@ -27,9 +27,12 @@ export default function Home() {
       </header>
 
       <main className=" max-w-3xl mx-auto p-5 space-y-5 mt-20">
-        <h1 className="font-black text-4xl lg:text-6xl text-jaguar-950 text-center"> Soporte de incidencias</h1>
+        <h1 className="font-black text-4xl lg:text-6xl text-jaguar-950 text-center">
+          {" "}
+          Soporte de incidencias
+        </h1>
         <p className="text-3xl font-bold text-center">
-         para gestionar tus <span className="text-chelsea-gem-500">tickets</span>
+          para gestionar tus <span className="text-chelsea-gem-500">tickets</span>
         </p>
         <p className="text-lg">
           Optimiza la atención de incidencias y solicitudes con nuestra plataforma de Tickets de
@@ -69,10 +72,16 @@ export default function Home() {
       </main>
 
       <nav className="flex flex-col lg:flex-row lg:justify-between gap-5 mt-10 pb-20 max-w-3xl mx-auto ">
-        <Link href="/auth/register" className="text-gray-500 text-sm uppercase text-center hover:text-jaguar-950 ">
+        <Link
+          href="/auth/sign-up"
+          className="text-gray-500 text-sm uppercase text-center hover:text-jaguar-950 "
+        >
           ¿No tienes cuenta? Crea una
         </Link>
-        <Link href="/auth/login" className="text-gray-500 text-sm uppercase text-center hover:text-jaguar-950 ">
+        <Link
+          href="/auth/login"
+          className="text-gray-500 text-sm uppercase text-center hover:text-jaguar-950 "
+        >
           ¿Ya tienes cuenta? Iniciar Sesión
         </Link>
       </nav>
