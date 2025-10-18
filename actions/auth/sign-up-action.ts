@@ -1,6 +1,6 @@
 "use server";
 
-import { formatErrorsKeyValue, formatLaravelErrorsKeyValue } from "@/lib/utils";
+import { formatArrayErrors, formatErrorsKeyValue, formatLaravelErrorsKeyValue } from "@/lib/utils";
 import { SuccessSchema } from "@/src/schemas";
 import { SignUp, SignUpSchema } from "@/src/schemas/auth";
 import { ActionResponse } from "@/src/types";
@@ -44,12 +44,10 @@ export async function signUp(
   if (!req.ok) {
     return {
       success: "",
-      laravelErr: formatLaravelErrorsKeyValue(json),
+      laravelErr: formatArrayErrors(json),
       inputs: rawData,
     };
   }
-  const success = SuccessSchema.parse(json);
-  return {
-    success: success.message,
-  };
+  const success = SuccessSchema.parse(json).message;
+  return { success };
 }
