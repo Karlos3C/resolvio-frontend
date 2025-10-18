@@ -20,6 +20,10 @@ export const SignUpSchema = z
     message: "Las contraseñas no son iguales",
     path: ["password_confirmation"],
   });
+export const SignInResponse = z.object({
+  email: z.email({ message: "Email no válido" }).min(1, { message: "El email es obligatorio" }),
+  password: z.string({ message: "La contraseña es obligatoria" }),
+});
 export const VerifyEmailSchema = z.object({
   token: z.string({ message: "Token no válido" }).length(6, { message: "Token no válido" }),
 });
@@ -48,4 +52,5 @@ export type Area = z.infer<typeof AreaAPIResponseSchema>;
 export type Links = z.infer<typeof LinksSchema>;
 export type LinkItem = z.infer<typeof LinkItemSchema>;
 export type SignUp = z.infer<typeof SignUpSchema>;
+export type SignIn = z.infer<typeof SignInResponse>;
 export type VerifyEmail = z.infer<typeof VerifyEmailSchema>;
