@@ -1,15 +1,12 @@
-import { SignUp } from "../schemas";
-import ErrorMessage from "../../components/ui/ErrorMessage";
-
-type ErrorMessage = {
-  errors: string[];
+export type ValidationErrors = {
+  [k: string]: string;
 };
 
-export type SignUpActionResponse = {
-  success: boolean;
-  errors?: {
-    [K in keyof SignUp]?: ErrorMessage;
-  };
-  inputs?: Partial<SignUp>;
-  message?: string;
+export type ValidationLaravelErrors = Record<string, string[]>;
+
+export type ActionResponse<T> = {
+  success: string;
+  errors?: ValidationErrors;
+  laravelErr?: string[];
+  inputs?: Partial<T>;
 };

@@ -1,10 +1,11 @@
 "use server";
 
-import { SignUpSchema, SuccessSchema } from "@/src/schemas";
-import { SignUpActionResponse } from "@/src/types";
-import { treeifyError } from "zod";
+import { formatErrorsKeyValue, formatLaravelErrorsKeyValue } from "@/lib/utils";
+import { SuccessSchema } from "@/src/schemas";
+import { SignUp, SignUpSchema } from "@/src/schemas/auth";
+import { ActionResponse } from "@/src/types";
 
-export async function signUp(prevState: SignUpActionResponse, formData: FormData) {
+export async function signUp(prevState: ActionResponse<SignUp>, formData: FormData) {
   const rawData = {
     name: formData.get("name") as string,
     last_name: formData.get("last_name") as string,
@@ -17,16 +18,14 @@ export async function signUp(prevState: SignUpActionResponse, formData: FormData
   const signUp = SignUpSchema.safeParse(rawData);
 
   if (!signUp.success) {
-    const signUpErrors = treeifyError(signUp.error);
     return {
-      errors: signUpErrors.properties,
-      success: false,
+      errors: formatErrorsKeyValue(signUp.error),
+      success: "",
       inputs: rawData,
-      message: "",
     };
   }
+
   const url = `${process.env.API_URL_LARAVEL}/sign-up`;
-  console.log(JSON.stringify(signUp.data));
 
   const req = await fetch(url, {
     method: "POST",
@@ -40,18 +39,14 @@ export async function signUp(prevState: SignUpActionResponse, formData: FormData
   const json = await req.json();
 
   if (!req.ok) {
-    console.log(req);
     return {
-      success: false,
+      success: "",
+      laravelErr: formatLaravelErrorsKeyValue(json),
       inputs: rawData,
-      message: "Hubo un error al generar su registro",
     };
   }
-
-  const message = SuccessSchema.parse(json);
-
+  const success = SuccessSchema.parse(json);
   return {
-    success: true,
-    message: message.message,
+    success: success.message,
   };
 }

@@ -1,31 +1,31 @@
 "use client";
 
 import { signUp } from "@/actions/auth/sign-up-action";
-import { Area } from "@/src/schemas";
+import { Area, SignUp } from "@/src/schemas/auth";
 import { useActionState, useEffect } from "react";
-import { SignUpActionResponse } from "@/src/types";
+import { ActionResponse } from "@/src/types";
 import ErrorMessage from "../ui/ErrorMessage";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 type SignUpFormProps = {
   areas: Area[];
 };
 
-const initialState: SignUpActionResponse = {
-  success: false,
-  message: "",
-};
+const initialState: ActionResponse<SignUp> = { success: "" };
 
 export default function SignUpForm({ areas }: SignUpFormProps) {
   const [state, action, pending] = useActionState(signUp, initialState);
+  const router = useRouter();
 
   useEffect(() => {
-    if (state.message && !state.success) {
-      toast.error(state.message);
+    if (state.laravelErr) {
+      state.laravelErr.map((err) => toast.error(err));
     }
 
-    if (state.message && state.success) {
-      toast.success(state.message);
+    if (state.success) {
+      toast.success(state.success);
+      router.push("/auth/verify-email");
     }
   }, [state]);
 
@@ -46,7 +46,7 @@ export default function SignUpForm({ areas }: SignUpFormProps) {
           className="w-full mt-1 p-2 border border-gray-300 bg-gray-100 rounded-md"
           placeholder="Ingresa tu nombre/s"
         />
-        {state.errors?.name && <ErrorMessage message={state.errors.name.errors[0]} />}
+        {state.errors?.name && <ErrorMessage message={state.errors.name} />}
       </div>
       <div>
         <label htmlFor="last_name" className="block mb-1">
@@ -60,7 +60,7 @@ export default function SignUpForm({ areas }: SignUpFormProps) {
           className="w-full mt-1 p-2 border border-gray-300 bg-gray-100 rounded-md"
           placeholder="Ingresa tus apellidos"
         />
-        {state.errors?.last_name && <ErrorMessage message={state.errors.last_name.errors[0]} />}
+        {state.errors?.last_name && <ErrorMessage message={state.errors.last_name} />}
       </div>
       <div>
         <label htmlFor="email" className="block mb-1">
@@ -87,7 +87,7 @@ export default function SignUpForm({ areas }: SignUpFormProps) {
           className="w-full mt-1 p-2 border border-gray-300 bg-gray-100 rounded-md"
           placeholder="Ingresa tu contraseña"
         />
-        {state.errors?.password && <ErrorMessage message={state.errors.password.errors[0]} />}
+        {state.errors?.password && <ErrorMessage message={state.errors.password} />}
       </div>
       <div>
         <label htmlFor="password_confirmation" className="block mb-1">
@@ -102,7 +102,7 @@ export default function SignUpForm({ areas }: SignUpFormProps) {
           placeholder="Confirma tu contraseña"
         />
         {state.errors?.password_confirmation && (
-          <ErrorMessage message={state.errors.password_confirmation.errors[0]} />
+          <ErrorMessage message={state.errors.password_confirmation} />
         )}
       </div>
       <div>
@@ -122,7 +122,7 @@ export default function SignUpForm({ areas }: SignUpFormProps) {
             </option>
           ))}
         </select>
-        {state.errors?.area_id && <ErrorMessage message={state.errors.area_id.errors[0]} />}
+        {state.errors?.area_id && <ErrorMessage message={state.errors.area_id} />}
       </div>
       <input
         type="submit"

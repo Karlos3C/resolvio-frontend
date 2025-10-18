@@ -7,7 +7,7 @@ export default function Logo() {
       alt="Resolvio Logo"
       width={1024}
       height={1024}
-      className="w-48 lg:w-full"
+      className="w-48 xl:w-full"
       priority
     />
   );

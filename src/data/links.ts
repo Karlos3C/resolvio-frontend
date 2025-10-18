@@ -1,4 +1,4 @@
-import { Links } from "../schemas/index";
+import { Links } from "../schemas/auth";
 import {
   IconPlus,
   IconChartBar,

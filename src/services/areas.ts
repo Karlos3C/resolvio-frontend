@@ -1,4 +1,4 @@
-import { AreasAPIResponseSchema } from "@/src/schemas";
+import { AreasAPIResponseSchema } from "@/src/schemas/auth";
 
 export const getAreas = async () => {
   const url = `${process.env.API_URL_LARAVEL}/sign-up-areas`;

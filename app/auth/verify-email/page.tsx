@@ -1,6 +1,5 @@
-import VerifyEmail from "@/components/auth/VerifyEmail";
+import VerifyEmailForm from "@/components/auth/VerifyEmailForm";
 import { Metadata } from "next";
-import Link from "next/link";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -17,7 +16,7 @@ export default function VerifyEmailPage() {
         <p className="text-center text-gray-500">
           Ingresa el código de verificación enviado a tu correo electrónico
         </p>
-        <VerifyEmail />
+        <VerifyEmailForm />
       </div>
     </>
   );
