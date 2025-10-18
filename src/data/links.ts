@@ -11,11 +11,6 @@ import {
 } from "@tabler/icons-react";
 
 export const links: Links = {
-  user: {
-    name: "Carlos Cabrera",
-    email: "carloscabreracarreon@gmail.com",
-    avatar: "/me_lego.png",
-  },
   navMain: [
     {
       title: "Dashboard",

@@ -1,12 +1,15 @@
 import { AppSidebar } from "@/components/ui/app-sidebar";
 import { SiteHeader } from "@/components/ui/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { verifySession } from "@/src/auth/dal";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await verifySession();
+  const user = session?.user ?? null;
   return (
     <>
       <SidebarProvider
@@ -17,7 +20,7 @@ export default function RootLayout({
           } as React.CSSProperties
         }
       >
-        <AppSidebar variant="inset" className="bg-jaguar-950" />
+        <AppSidebar variant="inset" className="bg-jaguar-950" user={user} />
         <SidebarInset>
           <SiteHeader />
           <div className="flex flex-1 flex-col">

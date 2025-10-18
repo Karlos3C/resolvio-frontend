@@ -1,9 +1,9 @@
 "use server";
 
 import { formatArrayErrors, formatErrorsKeyValue, formatLaravelErrorsKeyValue } from "@/lib/utils";
-import { SuccessSchema } from "@/src/schemas";
-import { SignIn, SignInResponse } from "@/src/schemas/auth";
+import { LoginResponse, SignIn, SignInResponse } from "@/src/schemas/auth";
 import { ActionResponse } from "@/src/types";
+import { cookies } from "next/headers";
 
 export async function signIn(
   prevState: ActionResponse<SignIn>,
@@ -34,7 +34,6 @@ export async function signIn(
   });
 
   const json = await req.json();
-  console.log(json);
 
   if (!req.ok) {
     return {
@@ -43,8 +42,17 @@ export async function signIn(
     };
   }
 
-  const success = SuccessSchema.parse(json).message;
+  const success = LoginResponse.parse(json);
+
+  const cookie = await cookies();
+  cookie.set({
+    name: "RESOLVIO_TOKEN",
+    value: success.data.access_token,
+    httpOnly: true,
+    path: "/",
+  });
+
   return {
-    success,
+    success: success.message,
   };
 }

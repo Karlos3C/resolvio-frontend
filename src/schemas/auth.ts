@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { boolean, z } from "zod";
 
 export const AreaAPIResponseSchema = z.object({
   id: z.number(),
@@ -38,14 +38,40 @@ const LinkItemSchema = z.object({
   icon: z.any(),
 });
 const LinksSchema = z.object({
-  user: z.object({
-    name: z.string(),
-    email: z.string(),
-    avatar: z.string(),
-  }),
   navMain: z.array(LinkItemSchema),
   navSecondary: z.array(LinkItemSchema),
   documents: z.array(LinkItemSchema),
+});
+
+export const RolesResponse = z.array(z.string());
+export const PermissionsResponse = z.array(z.string());
+
+export const UserResponse = z.object({
+  id: z.number(),
+  name: z.string(),
+  surnames: z.string(),
+  email: z.string(),
+  email_verified_at: z.string(),
+  area: z.string(),
+  user_status: z.string(),
+  roles: RolesResponse,
+  permissions: PermissionsResponse,
+});
+
+export const CheckSessionResponse = z.object({
+  logged_in: z.boolean(),
+  user: UserResponse,
+});
+
+export const DataAuthenticateResponse = z.object({
+  access_token: z.string(),
+  token_type: z.string(),
+  user: UserResponse,
+});
+
+export const LoginResponse = z.object({
+  message: z.string(),
+  data: DataAuthenticateResponse,
 });
 
 export type Area = z.infer<typeof AreaAPIResponseSchema>;
@@ -54,3 +80,4 @@ export type LinkItem = z.infer<typeof LinkItemSchema>;
 export type SignUp = z.infer<typeof SignUpSchema>;
 export type SignIn = z.infer<typeof SignInResponse>;
 export type VerifyEmail = z.infer<typeof VerifyEmailSchema>;
+export type User = z.infer<typeof UserResponse>;

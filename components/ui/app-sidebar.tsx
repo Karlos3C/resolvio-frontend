@@ -18,9 +18,15 @@ import {
 import Link from "next/link";
 import { links } from "@/src/data/links";
 import { usePathname } from "next/navigation";
+import { User } from "@/src/schemas/auth";
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+  user: User;
+}
+
+export function AppSidebar({ user, ...props }: AppSidebarProps) {
   const pathname: string = usePathname();
+
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -44,7 +50,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={links.navSecondary} pathname={pathname} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={links.user} />
+        <NavUser user={user} />
       </SidebarFooter>
     </Sidebar>
   );
