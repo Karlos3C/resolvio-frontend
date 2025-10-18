@@ -5,7 +5,10 @@ import { SuccessSchema } from "@/src/schemas";
 import { SignUp, SignUpSchema } from "@/src/schemas/auth";
 import { ActionResponse } from "@/src/types";
 
-export async function signUp(prevState: ActionResponse<SignUp>, formData: FormData) {
+export async function signUp(
+  prevState: ActionResponse<SignUp>,
+  formData: FormData
+): Promise<ActionResponse<SignUp>> {
   const rawData = {
     name: formData.get("name") as string,
     last_name: formData.get("last_name") as string,
