@@ -20,14 +20,27 @@ export const SignUpSchema = z
     message: "Las contraseñas no son iguales",
     path: ["password_confirmation"],
   });
-export const SignInResponse = z.object({
+export const SignInSchema = z.object({
   email: z.email({ message: "Email no válido" }).min(1, { message: "El email es obligatorio" }),
   password: z.string({ message: "La contraseña es obligatoria" }),
+});
+export const ForgotPasswordSchema = z.object({
+  email: z.email({ message: "Email no válido" }).min(1, { message: "El email es obligatorio" }),
 });
 export const VerifyEmailSchema = z.object({
   token: z.string({ message: "Token no válido" }).length(6, { message: "Token no válido" }),
 });
-
+export const ResetPasswordSchema = z
+  .object({
+    password: z
+      .string({ message: "La contraseña es obligatoria" })
+      .min(1, { message: "El password es obligatorio" }),
+    password_confirmation: z.string(),
+  })
+  .refine((data) => data.password === data.password_confirmation, {
+    message: "Las contraseñas no son iguales",
+    path: ["password_confirmation"],
+  });
 export const ErrorsSchema = z.object({
   errors: z.record(z.string(), z.array(z.string())),
 });
@@ -78,6 +91,8 @@ export type Area = z.infer<typeof AreaAPIResponseSchema>;
 export type Links = z.infer<typeof LinksSchema>;
 export type LinkItem = z.infer<typeof LinkItemSchema>;
 export type SignUp = z.infer<typeof SignUpSchema>;
-export type SignIn = z.infer<typeof SignInResponse>;
+export type SignIn = z.infer<typeof SignInSchema>;
 export type VerifyEmail = z.infer<typeof VerifyEmailSchema>;
+export type ForgotPassword = z.infer<typeof ForgotPasswordSchema>;
+export type ResetPassword = z.infer<typeof ResetPasswordSchema>;
 export type User = z.infer<typeof UserResponse>;

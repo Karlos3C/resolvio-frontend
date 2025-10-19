@@ -1,7 +1,7 @@
 "use server";
 
 import { formatArrayErrors, formatErrorsKeyValue, formatLaravelErrorsKeyValue } from "@/lib/utils";
-import { LoginResponse, SignIn, SignInResponse } from "@/src/schemas/auth";
+import { LoginResponse, SignIn, SignInSchema } from "@/src/schemas/auth";
 import { ActionResponse } from "@/src/types";
 import { cookies } from "next/headers";
 
@@ -14,7 +14,7 @@ export async function signIn(
     password: formData.get("password") as string,
   };
 
-  const signIn = SignInResponse.safeParse(rawData);
+  const signIn = SignInSchema.safeParse(rawData);
 
   if (!signIn.success) {
     return {
