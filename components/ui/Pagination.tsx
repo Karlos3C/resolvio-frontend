@@ -29,13 +29,13 @@ export default function Pagination() {
       <div className="flex flex-1 justify-between lg:hidden">
         <a
           href="#"
-          className="relative inline-flex items-center border border-jaguar-910 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50"
+          className="relative inline-flex items-center border border-gray-910 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50"
         >
           Anterior
         </a>
         <a
           href="#"
-          className="relative ml-3 inline-flex items-center border border-jaguar-910 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50"
+          className="relative ml-3 inline-flex items-center border border-gray-910 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50"
         >
           Siguiente
         </a>
@@ -43,8 +43,9 @@ export default function Pagination() {
       <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-between">
         <div>
           <p className="text-sm text-jaguar-910">
-            Mostrando <span className="font-medium">1</span> a <span className="font-medium">10</span> de{' '}
-            <span className="font-medium">10</span> resultados
+            Mostrando <span className="font-medium">1</span> a{" "}
+            <span className="font-medium">10</span> de <span className="font-medium">10</span>{" "}
+            resultados
           </p>
         </div>
         <div>
@@ -108,5 +109,5 @@ export default function Pagination() {
         </div>
       </div>
     </div>
-  )
+  );
 }
