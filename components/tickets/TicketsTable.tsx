@@ -9,7 +9,12 @@ import { DataPaginated, PaginatedResponseSchema } from "@/src/types";
 import { Ticket, TicketAPIResponseSchema } from "@/src/schemas/ticket";
 import { useGet } from "@/hooks/get-data";
 import Loader from "../ui/loader";
-export default function TicketsTable() {
+
+type TicketsTableProps = {
+  filterQuery?: string;
+};
+
+export default function TicketsTable({ filterQuery }: TicketsTableProps) {
   const schema = useMemo(() => PaginatedResponseSchema(TicketAPIResponseSchema), []);
   const options = useMemo(() => ({ auto: true, parseSchema: schema }), [schema]);
 
@@ -17,10 +22,19 @@ export default function TicketsTable() {
     data: ticketsData,
     loading,
     setFromExternal,
+    setUrl,
   } = useGet<DataPaginated<Ticket>>("/api/tickets", options);
 
+  const [localBase, setLocalBase] = useState<string>("/api/tickets");
+
+  useEffect(() => {
+    if (filterQuery === undefined) return;
+    setLocalBase("/api/tickets");
+    setUrl(filterQuery ? `/api/tickets${filterQuery}` : "/api/tickets");
+  }, [filterQuery, setUrl]);
+
   const handleNavigate = (externalUrl: string | null) => {
-    setFromExternal(externalUrl, "/api/tickets");
+    setFromExternal(externalUrl, localBase);
   };
 
   if (loading) return <Loader />;
@@ -54,30 +68,38 @@ export default function TicketsTable() {
               </tr>
             </thead>
             <tbody>
-              {tickets.map((ticket) => (
-                <tr
-                  className="whitespace-nowrap text-sm even:bg-white odd:bg-gray-100 border"
-                  key={ticket.id}
-                >
-                  <td className="py-2 px-3 font-semibold">{ticket.folio}</td>
-                  <td className="py-2 px-3">{ticket.title}</td>
-                  <td className="py-2 px-3">{ticket.issue.name}</td>
-                  <td className={`${colors[ticket.priority.name]} py-2 px-3 font-medium`}>
-                    {ticket.priority.name}
-                  </td>
-                  <td className="py-2 px-3">{ticket.responsable ?? "No asignado"}</td>
-                  <td className="py-2 px-3">{ticket.ticket_status.name}</td>
-                  <td className="py-2 px-3">{ticket.user}</td>
-                  <td className="py-2 px-3 flex gap-3 items-center">
-                    <Link href={"#"} className="flex gap-1 items-center text-indigo-600">
-                      <IconEye className="size-4!" /> Ver
-                    </Link>
-                    <Link href={"#"} className="flex gap-1 items-center text-teal-800">
-                      <IconPencil className="size-4!" /> Editar
-                    </Link>
+              {tickets.length ? (
+                tickets.map((ticket) => (
+                  <tr
+                    className="whitespace-nowrap text-sm even:bg-white odd:bg-gray-100 border"
+                    key={ticket.id}
+                  >
+                    <td className="py-2 px-3 font-semibold">{ticket.folio}</td>
+                    <td className="py-2 px-3">{ticket.title}</td>
+                    <td className="py-2 px-3">{ticket.issue.name}</td>
+                    <td className={`${colors[ticket.priority.name]} py-2 px-3 font-medium`}>
+                      {ticket.priority.name}
+                    </td>
+                    <td className="py-2 px-3">{ticket.responsable ?? "No asignado"}</td>
+                    <td className="py-2 px-3">{ticket.ticket_status.name}</td>
+                    <td className="py-2 px-3">{ticket.user}</td>
+                    <td className="py-2 px-3 flex gap-3 items-center">
+                      <Link href={"#"} className="flex gap-1 items-center text-indigo-600">
+                        <IconEye className="size-4!" /> Ver
+                      </Link>
+                      <Link href={"#"} className="flex gap-1 items-center text-teal-800">
+                        <IconPencil className="size-4!" /> Editar
+                      </Link>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={8} className="py-4 px-3 text-center text-gray-500">
+                    No se encontraron tickets.
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
