@@ -7,6 +7,7 @@ import { PinInput, PinInputField } from "@chakra-ui/pin-input";
 import { useRouter } from "next/navigation";
 import { startTransition, useActionState, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import Loader from "../ui/loader";
 
 const initialState: ActionResponse<VerifyEmail> = { success: "" };
 
@@ -16,7 +17,7 @@ export default function VerifyEmailForm() {
   const router = useRouter();
 
   const verifyEmailWithToken = verifyEmailToken.bind(null, token);
-  const [state, action] = useActionState(verifyEmailWithToken, initialState);
+  const [state, action, pending] = useActionState(verifyEmailWithToken, initialState);
 
   useEffect(() => {
     if (isComplete) {
@@ -57,6 +58,7 @@ export default function VerifyEmailForm() {
           </PinInput>
         </div>
       </div>
+      {pending && <Loader />}
     </>
   );
 }

@@ -8,6 +8,7 @@ import { useEffect, useMemo, useState } from "react";
 import { DataPaginated, PaginatedResponseSchema } from "@/src/types";
 import { Ticket, TicketAPIResponseSchema } from "@/src/schemas/ticket";
 import { useGet } from "@/hooks/get-data";
+import Loader from "../ui/loader";
 export default function TicketsTable() {
   const schema = useMemo(() => PaginatedResponseSchema(TicketAPIResponseSchema), []);
   const options = useMemo(() => ({ auto: true, parseSchema: schema }), [schema]);
@@ -22,7 +23,7 @@ export default function TicketsTable() {
     setFromExternal(externalUrl, "/api/tickets");
   };
 
-  if (loading) return <p>Cargando...</p>;
+  if (loading) return <Loader />;
   if (!ticketsData) return <p>No hay tickets</p>;
 
   const { data: tickets, meta, links } = ticketsData;
