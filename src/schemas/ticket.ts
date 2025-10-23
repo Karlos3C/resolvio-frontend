@@ -24,7 +24,36 @@ export const CreateTicketSchema = z.object({
     })
     .pipe(z.array(z.string()).nonempty("Los tags son obligatorios")),
 });
-
 export const JsonTagsSchema = z.array(z.string()).nonempty("Los tags son obligatorios");
 
+export const TicketAPIResponseSchema = z.object({
+  id: z.number(),
+  folio: z.string(),
+  title: z.string(),
+  description: z.string(),
+  issue: z.object({
+    id: z.number(),
+    name: z.string(),
+  }),
+  priority: z.object({
+    id: z.number(),
+    name: z.string(),
+  }),
+  ticket_status: z.object({
+    id: z.number(),
+    name: z.string(),
+  }),
+  responsable: z.string().nullable(),
+  user: z.string(),
+  limit_date: z.string().nullable(),
+  tags: z.string(),
+  created_at: z.string(),
+  updated_at: z.string(),
+});
+
+export const TicketsAPIResponseSchema = z.object({
+  data: z.array(TicketAPIResponseSchema),
+});
+
 export type CreateTicket = z.infer<typeof CreateTicketSchema>;
+export type Ticket = z.infer<typeof TicketAPIResponseSchema>;

@@ -28,6 +28,17 @@
   --color-jaguar-900: #0d08a7;
   --color-jaguar-950: #020113;
   --color-jaguar-910: #1f1650;
+
+  --color-aqua: #b8dcff;
+  --color-dark-aqua: #1f3b5c;
+  --color-green: #d8f5c0;
+  --color-dark-green: #2d5415;
+  --color-yellow: #fff3b0;
+  --color-dark-yellow: #7a6208;
+  --color-red: #f8c4b4;
+  --color-dark-red: #842029;
+  --color-pink: #f3b4f7;
+  --color-dark-pink: #6b0f6b;
 }
 
 @theme inline {
